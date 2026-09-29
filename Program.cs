@@ -63,14 +63,14 @@ namespace TelebeQeydiyyatSistemi
         {
             Console.Write("Tələbə ID: ");
 
-            // TryParse: istifadəçi hərf yazarsa proqram çökməsin
+            
             if (!int.TryParse(Console.ReadLine(), out int id))
             {
                 Console.WriteLine("Xəta: ID yalniz rəqəm olmalidir.");
                 return;
             }
 
-            // Açar unikal olmalıdır, ona görə əvvəlcə yoxlayırıq
+
             if (telebeler.ContainsKey(id))
             {
                 Console.WriteLine($"Xəta: {id} ID-li tələbə artiq mövcuddur ({telebeler[id]}).");
@@ -90,7 +90,6 @@ namespace TelebeQeydiyyatSistemi
             Console.WriteLine($"Tələbə əlavə olundu: {id} - {ad.Trim()}");
         }
 
-        // 2) ID ilə axtarış
         static void TelebeAxtar(Dictionary<int, string> telebeler)
         {
             Console.Write("Axtarilan ID: ");
@@ -101,14 +100,14 @@ namespace TelebeQeydiyyatSistemi
                 return;
             }
 
-            // TryGetValue: açar yoxdursa xəta atmır
+            
             if (telebeler.TryGetValue(id, out string ad))
                 Console.WriteLine($"Tapildi: {id} - {ad}");
             else
                 Console.WriteLine($"{id} ID-li tələbə tapilmadi.");
         }
 
-        // 3) Bütün tələbələri göstərmək
+        
         static void ButunTelebeleriGoster(Dictionary<int, string> telebeler)
         {
             if (telebeler.Count == 0)
@@ -117,7 +116,7 @@ namespace TelebeQeydiyyatSistemi
                 return;
             }
 
-            // Açarları List-ə köçürüb sıralayırıq ki, ID-lər artan sırada çıxsın
+          
             List<int> idler = new List<int>(telebeler.Keys);
             idler.Sort();
 
