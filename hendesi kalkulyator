@@ -1,0 +1,110 @@
+using System;
+using System.Globalization;
+
+namespace HendesiKalkulyator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool davam = true;
+
+            while (davam)
+            {
+                Console.WriteLine("\n===== HƏNDƏSİ KALKULYATOR =====");
+                Console.WriteLine("1) Dairə");
+                Console.WriteLine("2) Düzbucaqlı");
+                Console.WriteLine("3) Üçbucaq");
+                Console.WriteLine("4) Çıxış");
+                Console.Write("Fiqur seçin: ");
+
+                string secim = Console.ReadLine();
+                switch (secim)
+                {
+                    case "1":
+                        DaireSahesi();
+                        break;
+
+                    case "2":
+                        DuzbucaqliSahesi();
+                        break;
+
+                    case "3":
+                        UcbucaqSahesi();
+                        break;
+
+                    case "4":
+                        Console.WriteLine("Proqram bağlanır.");
+                        davam = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Yanlış seçim! 1-4 arasında rəqəm daxil edin.");
+                        break;
+                }
+            }
+        }
+        static void DaireSahesi()
+        {
+            double r = OlcuOxu("Radius (r): ");
+            if (r <= 0) return;
+
+            double sahe = Math.PI * Math.Pow(r, 2);              // Math.Pow: r-in kvadratı
+            double perimetr = 2 * Math.PI * r;
+
+            Console.WriteLine($"Dairənin sahəsi: {Math.Round(sahe, 2)}");
+            Console.WriteLine($"Çevrənin uzunluğu: {Math.Round(perimetr, 2)}");
+        }
+        static void DuzbucaqliSahesi()
+        {
+            double a = OlcuOxu("Uzunluq (a): ");
+            if (a <= 0) return;
+            double b = OlcuOxu("En (b): ");
+            if (b <= 0) return;
+            double sahe = a * b;
+            double perimetr = 2 * (a + b);
+            double diaqonal = Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
+            Console.WriteLine($"Düzbucaqlının sahəsi: {Math.Round(sahe, 2)}");
+            Console.WriteLine($"Perimetri: {Math.Round(perimetr, 2)}");
+            Console.WriteLine($"Diaqonalı: {Math.Round(diaqonal, 2)}");
+        }
+        static void UcbucaqSahesi()
+        {
+            double a = OlcuOxu("1-ci tərəf (a): ");
+            if (a <= 0) return;
+            double b = OlcuOxu("2-ci tərəf (b): ");
+            if (b <= 0) return;
+            double c = OlcuOxu("3-cü tərəf (c): ");
+            if (c <= 0) return;
+            if (a + b <= c || a + c <= b || b + c <= a)
+            {
+                Console.WriteLine("Xəta: bu ölçülərlə üçbucaq mövcud deyil.");
+                return;
+            }
+            double p = (a + b + c) / 2;
+            double sahe = Math.Sqrt(p * (p - a) * (p - b) * (p - c));  
+
+            Console.WriteLine($"Üçbucağın sahəsi: {Math.Round(sahe, 2)}");
+            Console.WriteLine($"Perimetri: {Math.Round(a + b + c, 2)}");
+        }
+        static double OlcuOxu(string mesaj)
+        {
+            Console.Write(mesaj);
+            string giris = Console.ReadLine()?.Replace(',', '.');
+
+            if (!double.TryParse(giris, NumberStyles.Float, CultureInfo.InvariantCulture, out double deyer))
+            {
+                Console.WriteLine("Xəta: yalnız ədəd daxil edin.");
+                return 0;
+            }
+
+            if (deyer <= 0)
+            {
+                Console.WriteLine("Xəta: ölçü sıfırdan böyük olmalıdır.");
+                return 0;
+            }
+
+            return deyer;
+        }
+    }
+}
