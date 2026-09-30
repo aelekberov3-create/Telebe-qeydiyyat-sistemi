@@ -48,7 +48,7 @@ namespace TelebeQeydiyyatSistemi
 
                     case "4":
                         Console.WriteLine("Proqram bağlanir. Sağ olun!");
-                        davam = false;      // while dövrünü dayandırır
+                        davam = false;      
                         break;
 
                     default:
